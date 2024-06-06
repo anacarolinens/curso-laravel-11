@@ -19,6 +19,7 @@ class UserController extends Controller
 
     public function create()
     {
+        dd('create');
         return view('admin.users.create');
     }
 
@@ -30,6 +31,7 @@ class UserController extends Controller
             ->route('users.index')
             ->with('success', 'Usuário criado com sucesso!');
     }
+
 
     public function edit(string $id)
     {
@@ -64,5 +66,37 @@ class UserController extends Controller
         return redirect()
             ->route('users.index')
             ->with('success', 'Usuário atualizado com sucesso!');
+    }
+
+    public function show(string $id)
+    {
+        if (!$user = User::find($id)) {
+            return redirect()
+                ->route('users.index')
+                ->with('warning', 'Usuário não encontrado!');
+        }
+
+        return view('admin.users.show', compact('user'));
+    }
+
+    public function destroy(string $id)
+    {
+        if (!$user = User::find($id)) {
+            return redirect()
+                ->route('users.index')
+                ->with('warning', 'Usuário não encontrado!');
+        }
+
+        if (auth()->user()->id === $user->id) {
+            return redirect()
+                ->route('users.index')
+                ->with('warning', 'Você não pode deletar a si mesmo!');
+        }
+
+        $user->delete();
+
+        return redirect()
+            ->route('users.index')
+            ->with('success', 'Usuário deletado com sucesso!');
     }
 }
