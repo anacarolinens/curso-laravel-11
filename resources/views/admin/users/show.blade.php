@@ -11,7 +11,9 @@
         <li><strong>Email: </strong>{{ $user->email }}</li>
     </ul>
 
-    <form action="{{ route('users.destroy', $user->id )}}" method="POST">
+    <x-alert/>
+
+    <form action="{{ route('users.destroy', $user->id )}}" method="post">
         @csrf
         @method('delete')
         <button type="submit">Deletar</button>

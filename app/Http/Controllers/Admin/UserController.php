@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class UserController extends Controller
@@ -19,7 +20,6 @@ class UserController extends Controller
 
     public function create()
     {
-        dd('create');
         return view('admin.users.create');
     }
 
@@ -87,9 +87,8 @@ class UserController extends Controller
                 ->with('warning', 'Usuário não encontrado!');
         }
 
-        if (auth()->user()->id === $user->id) {
-            return redirect()
-                ->route('users.index')
+        if (Auth::user()->id === $user->id) {
+            return back()
                 ->with('warning', 'Você não pode deletar a si mesmo!');
         }
 
