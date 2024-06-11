@@ -43,7 +43,7 @@ class UserController extends Controller
         if (!$user = User::find($id)) {
             return redirect()
                 ->route('users.index')
-                ->with('warning', 'Usuário não encontrado!');
+                ->with('error', 'Usuário não encontrado!');
         }
 
         return view('admin.users.edit', compact('user'));
@@ -74,7 +74,7 @@ class UserController extends Controller
         if (!$user = User::find($id)) {
             return redirect()
                 ->route('users.index')
-                ->with('warning', 'Usuário não encontrado!');
+                ->with('error', 'Usuário não encontrado!');
         }
 
         return view('admin.users.show', compact('user'));
@@ -90,18 +90,18 @@ class UserController extends Controller
         if (!$user = User::find($id)) {
             return redirect()
                 ->route('users.index')
-                ->with('warning', 'Usuário não encontrado!');
+                ->with('error', 'Usuário não encontrado!');
         }
 
         if (Auth::user()->id === $user->id) {
             return back()
-                ->with('warning', 'Você não pode deletar a si mesmo!');
+                ->with('error', 'Você não pode deletar a si mesmo!');
         }
 
         $user->delete();
 
         return redirect()
             ->route('users.index')
-            ->with('success', 'Usuário deletado com sucesso!');
+            ->with('warning', 'Usuário deletado!');
     }
 }
