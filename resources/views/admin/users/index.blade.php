@@ -19,9 +19,9 @@
                     </a>
 
                     <x-alert/>
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm mt-5">
+                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm mt-5 rounded">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-800">
-                            <thead class="text-xs text-white uppercase bg-gray-500 dark:text-gray-800">
+                            <thead class="text-xs text-black uppercase bg-gray-100 dark:text-gray-800">
                                 <tr>
                                     <th scope="col" class="px-6 py-4 text-center">Nome</th>
                                     <th scope="col" class="px-6 py-4 text-center">Email</th>
