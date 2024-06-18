@@ -54,70 +54,111 @@
                         </div>
                     </div>
 
-                    <!-- Card com Gráfico de Linhas -->
+                    <!-- Card com Gráfico de Linhas CREATES-->
                     <div class="w-2/2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-                        <div class="p-6">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Overview</h3>
-                            <div class="flex justify-center">
-                                <canvas id="lineChart" width="800" height="400"></canvas>
-                            </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Criação de Usuários</h3>
+                        <div class="flex justify-center">
+                            <canvas id="lineChartCreates" width="800" height="400"></canvas>
                         </div>
                     </div>
+
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Deleção de Usuários</h3>
+                        <div class="flex justify-center">
+                            <canvas id="lineChartDeletes" width="800" height="400"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Edição de Usuários</h3>
+                        <div class="flex justify-center">
+                            <canvas id="lineChartEdits" width="800" height="400"></canvas>
+                        </div>
+                    </div>
+
+                </div>
 
                 </div>
             </div>
         </div>
     </div>
 
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                    var ctx = document.getElementById('lineChart').getContext('2d');
-                    var myChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: ['Início', 'Atual'],
-                            datasets: [{
-                                label: 'Total de Usuários',
-                                data: [0, {{ $userCount }}],
-                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                borderWidth: 4,
-                                pointRadius: 7,
-                                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-                                pointBorderColor: '#fff',
-                                fill: false
-                            }, {
-                                label: 'Usuários Deletados',
-                                data: [0, {{ $deletedUserCount }}],
-                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                                borderColor: 'rgba(255, 99, 132, 1)',
-                                borderWidth: 4,
-                                pointRadius: 7,
-                                pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                                pointBorderColor: '#fff',
-                                fill: false
-                            }, {
-                                label: 'Usuários Editados',
-                                data: [0, {{ $editedUserCount }}],
-                                backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                                borderColor: 'rgba(255, 206, 86, 1)',
-                                borderWidth: 4,
-                                pointRadius: 7,
-                                pointBackgroundColor: 'rgba(255, 206, 86, 1)',
-                                pointBorderColor: '#fff',
-                                fill: false
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                y: {
-                                    beginAtZero: true
-                                }
-                            }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctxCreates = document.getElementById('lineChartCreates').getContext('2d');
+            var myChartCreates = new Chart(ctxCreates, {
+                type: 'line',
+                data: {
+                    labels: [@php echo $userAno; @endphp],
+                    datasets: [{
+                        label: @php echo $userLabel; @endphp,
+                        data: [@php echo $userTotal; @endphp],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
                         }
-                    });
+                    }
+                }
             });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctxDeletes = document.getElementById('lineChartDeletes').getContext('2d');
+            var myChartDeletes = new Chart(ctxDeletes, {
+                type: 'line',
+                data: {
+                    labels: [@php echo $deletedUserAno; @endphp],
+                    datasets: [{
+                        label: @php echo $deletedUserLabel; @endphp,
+                        data: [@php echo $deletedUserTotal; @endphp],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctxEdits = document.getElementById('lineChartEdits').getContext('2d');
+            var myChartEdits = new Chart(ctxEdits, {
+                type: 'line',
+                data: {
+                    labels: [@php echo $editedUserAno; @endphp],
+                    datasets: [{
+                        label: @php echo $editedUserLabel; @endphp,
+                        data: [@php echo $editedUserTotal; @endphp],
+                        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                        borderColor: 'rgba(255, 206, 86, 1)',
+                        borderWidth: 1,
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
     </script>
 
 </x-app-layout>
