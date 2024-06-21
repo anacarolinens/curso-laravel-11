@@ -54,26 +54,31 @@
                         </div>
                     </div>
 
-                    <!-- Card com Gráfico de Linhas CREATES-->
+                    <!-- Card com Gráfico de Linhas CREATES -->
                     <div class="w-2/2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-                    <div class="p-6">
+                        <div class="p-4">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Criação de Usuários</h3>
                         <div class="flex justify-center">
                             <canvas id="lineChartCreates" width="800" height="400"></canvas>
+                            </div>
                         </div>
                     </div>
-
+                    <!-- Card com Gráfico de Linhas DELETES -->
+                    <div class="w-2/2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
                     <div class="p-6">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Deleção de Usuários</h3>
                         <div class="flex justify-center">
                             <canvas id="lineChartDeletes" width="800" height="400"></canvas>
                         </div>
                     </div>
-
+                    </div>
+                    <!-- Card com Gráfico de Linhas EDITS -->
+                    <div class="w-2/2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
                     <div class="p-6">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Edição de Usuários</h3>
                         <div class="flex justify-center">
                             <canvas id="lineChartEdits" width="800" height="400"></canvas>
+                            </div>
                         </div>
                     </div>
 

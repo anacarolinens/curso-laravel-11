@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+input[name="search"]::selection {
+    background: transparent;
+}
+input[name="search"]:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: transparent;
+}

@@ -12,9 +12,21 @@ use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
-    public function index()
+    /* public function index()
     {
         $users =  User::paginate(25); //User::all();
+
+        return view('admin.users.index', compact('users'));
+    } */
+
+    public function index(Request $request)
+    {
+        $search = $request->input('search');
+
+        $users = User::when($search, function ($query, $search) {
+            return $query->where('name', 'LIKE', "%{$search}%")
+                ->orWhere('email', 'LIKE', "%{$search}%");
+        })->paginate(20);
 
         return view('admin.users.index', compact('users'));
     }
