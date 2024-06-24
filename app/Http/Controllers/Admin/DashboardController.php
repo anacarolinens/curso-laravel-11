@@ -77,7 +77,39 @@ class DashboardController extends Controller
         $editedUserAno = implode(',', $editedAno);
         $editedUserTotal = implode(',', $editedTotal);
 
+        //Gráfico 4 - Usuários deletados por mês
+        $deletedUsersData = User::onlyTrashed()
+            ->select([
+                DB::raw('MONTH(deleted_at) as mes'),
+                DB::raw('COUNT(*) as total')
+            ])
+            ->groupBy('mes')
+            ->orderBy('mes', 'asc')
+            ->get();
 
-        return view('dashboard', compact('userCount', 'deletedUserCount', 'editedUserCount', 'userLabel', 'userAno', 'userTotal', 'deletedUserLabel', 'deletedUserAno', 'deletedUserTotal', 'editedUserLabel', 'editedUserAno', 'editedUserTotal'));
+        // array de meses
+        $months = [
+            1 => 'Janeiro', 2 => 'Fevereiro', 3 => 'Março', 4 => 'Abril', 5 => 'Maio',
+            6 => 'Junho', 7 => 'Julho', 8 => 'Agosto', 9 => 'Setembro', 10 => 'Outubro',
+            11 => 'Novembro', 12 => 'Dezembro'
+        ];
+
+        //Preparar arrays
+        foreach ($deletedUsersData as $user) {
+            $deletedMes[] = $months[$user->mes];
+            $deletedTotal[] = $user->total;
+        }
+
+
+
+        //Formartar chartjs
+        $deletedUserLabelMes = "'Usuários deletados por mês'";
+        $deletedUserMes = "'" . implode("','", $deletedMes) . "'";
+        $deletedUserTotalMes = implode(',', $deletedTotal);
+
+
+
+
+        return view('dashboard', compact('userCount', 'deletedUserCount', 'editedUserCount', 'userLabel', 'userAno', 'userTotal', 'deletedUserLabel', 'deletedUserAno', 'deletedUserTotal', 'editedUserLabel', 'editedUserAno', 'editedUserTotal', 'deletedUserLabelMes', 'deletedUserMes', 'deletedUserTotalMes'));
     }
 }
