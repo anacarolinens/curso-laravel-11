@@ -11,7 +11,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $userCount = User::all()->count();
+        $userCount = User::count();
         $deletedUserCount = User::onlyTrashed()->count();
         $editedUserCount = User::whereColumn('updated_at', '>', 'created_at')->count();
 
@@ -20,17 +20,18 @@ class DashboardController extends Controller
             DB::raw('YEAR(created_at) as ano'),
             DB::raw('COUNT(*) as total')
         ])
-            ->groupBy('ano')
-            ->orderBy('ano', 'asc')
-            ->get();
+        ->groupBy('ano')
+        ->orderBy('ano', 'asc')
+        ->get();
 
-        //Preparar arrays
+        // Inicializar arrays
+        $ano = $total = [];
         foreach ($usersData as $user) {
             $ano[] = $user->ano;
             $total[] = $user->total;
         }
 
-        //Formartar chartjs
+        // Formatar chartjs
         $userLabel = "'Usuários cadastrados por ano'";
         $userAno = implode(',', $ano);
         $userTotal = implode(',', $total);
@@ -45,18 +46,19 @@ class DashboardController extends Controller
             ->orderBy('ano', 'asc')
             ->get();
 
-        //Preparar arrays
+        // Inicializar arrays
+        $deletedAno = $deletedTotal = [];
         foreach ($deletedUsersData as $user) {
             $deletedAno[] = $user->ano;
             $deletedTotal[] = $user->total;
         }
 
-        //Formartar chartjs
+        // Formatar chartjs
         $deletedUserLabel = "'Usuários deletados por ano'";
         $deletedUserAno = implode(',', $deletedAno);
         $deletedUserTotal = implode(',', $deletedTotal);
 
-        //  Gráfico 3 - Usuários editados por ano
+        // Gráfico 3 - Usuários editados por ano
         $editedUsersData = User::whereColumn('updated_at', '>', 'created_at')
             ->select([
                 DB::raw('YEAR(updated_at) as ano'),
@@ -66,18 +68,19 @@ class DashboardController extends Controller
             ->orderBy('ano', 'asc')
             ->get();
 
-        //Preparar arrays
+        // Inicializar arrays
+        $editedAno = $editedTotal = [];
         foreach ($editedUsersData as $user) {
             $editedAno[] = $user->ano;
             $editedTotal[] = $user->total;
         }
 
-        //Formartar chartjs
+        // Formatar chartjs
         $editedUserLabel = "'Usuários editados por ano'";
         $editedUserAno = implode(',', $editedAno);
         $editedUserTotal = implode(',', $editedTotal);
 
-        //Gráfico 4 - Usuários deletados por mês
+        // Gráfico 4 - Usuários deletados por mês
         $deletedUsersData = User::onlyTrashed()
             ->select([
                 DB::raw('MONTH(deleted_at) as mes'),
@@ -94,22 +97,24 @@ class DashboardController extends Controller
             11 => 'Novembro', 12 => 'Dezembro'
         ];
 
-        //Preparar arrays
+        // Inicializar arrays
+        $deletedMes = $deletedTotalMes = [];
         foreach ($deletedUsersData as $user) {
             $deletedMes[] = $months[$user->mes];
-            $deletedTotal[] = $user->total;
+            $deletedTotalMes[] = $user->total;
         }
 
-
-
-        //Formartar chartjs
+        // Formatar chartjs
         $deletedUserLabelMes = "'Usuários deletados por mês'";
         $deletedUserMes = "'" . implode("','", $deletedMes) . "'";
-        $deletedUserTotalMes = implode(',', $deletedTotal);
+        $deletedUserTotalMes = implode(',', $deletedTotalMes);
 
-
-
-
-        return view('dashboard', compact('userCount', 'deletedUserCount', 'editedUserCount', 'userLabel', 'userAno', 'userTotal', 'deletedUserLabel', 'deletedUserAno', 'deletedUserTotal', 'editedUserLabel', 'editedUserAno', 'editedUserTotal', 'deletedUserLabelMes', 'deletedUserMes', 'deletedUserTotalMes'));
+        return view('dashboard', compact(
+            'userCount', 'deletedUserCount', 'editedUserCount',
+            'userLabel', 'userAno', 'userTotal',
+            'deletedUserLabel', 'deletedUserAno', 'deletedUserTotal',
+            'editedUserLabel', 'editedUserAno', 'editedUserTotal',
+            'deletedUserLabelMes', 'deletedUserMes', 'deletedUserTotalMes'
+        ));
     }
 }
