@@ -1,20 +1,9 @@
-<x-app-layout>
-    @extends('admin.layouts.app')
-
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Mostrar usuário') }}
-        </h2>
-    </x-slot>
-
-@section('content')
     <div class="py-10">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    @include('admin.users.partials.breadcrumb')
                     <div class="py-6">
-                        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-500">Editar Usuário</h2>
+                        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-500">Usuário  {{ $user->name }}</h2>
                     </div>
 
 
@@ -34,11 +23,45 @@
                     <form action="{{ route('users.destroy', $user->id )}}" method="post">
                         @csrf
                         @method('delete')
-                        <button type="submit" class="text-white bg-red-700 hover:bg-red-800 py-2 px-4 rounded mt-5">Deletar</button>
+
+                        <x-secondary-button x-on:click="$dispatch('close')">
+                            {{ __('Cancelar') }}
+                        </x-secondary-button>
+
+                        <x-danger-button  x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')" class="mt-5 ml-4">
+                            {{ __('Deletar') }}
+                        </x-danger-button>
+
                     </form>
+
+                    <!-- Modal Deleção-->
+                        <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                            <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+                                @csrf
+                                @method('delete')
+
+                                <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100 flex justify-center mt-10">
+                                    {{ __('Tem certeza de que deseja excluir sua conta?') }}
+                                </h2>
+
+                                <p class="mt-5 text-sm text-gray-600 dark:text-gray-400 text-center ">
+                                    {{ __('Depois que sua conta for excluída, todos os seus recursos e dados serão excluídos permanentemente. Clique em confirmar para excluir permanentemente essa conta.') }}
+                                </p>
+
+                                <div class="mt-6 flex justify-center">
+                                    <x-secondary-button x-on:click="$dispatch('close')">
+                                        {{ __('Cancelar') }}
+                                    </x-secondary-button>
+
+                                    <x-danger-button class="ms-3">
+                                        {{ __('Deletar Conta') }}
+                                    </x-danger-button>
+                                </div>
+                            </form>
+                        </x-modal>
+
                     @endcan
                 </div>
             </div>
          </div>
     </div>
-</x-app-layout>
