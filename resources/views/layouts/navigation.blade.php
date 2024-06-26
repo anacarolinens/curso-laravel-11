@@ -24,21 +24,28 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-
+               <x-dropdown align="right" width="56">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-
-
-                            <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                                <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                        <button class="inline-flex items-center px-1.5 py-1.5 border border-transparent text-sm leading-4 font-medium rounded-full text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                            @if(Auth::user()->avatar_url)
+                            <img class="h-8 w-8 rounded-full" src="{{ Auth::user()->avatar_url }}" alt="{{ Auth::user()->name }}" />
+                            @else
+                            <div class="h-8 w-8 bg-gray-300 rounded-full flex items-center justify-center">
+                                <svg class="h-4 w-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                </svg>
                             </div>
-
+                            @endif
 
                         </button>
                     </x-slot>
 
                     <x-slot name="content">
+                        <div class="px-4 border-b border-gray-200 dark:border-gray-600">
+                            <div class="font-medium text-base text-gray-700 dark:text-gray-200">{{ Auth::user()->name }}</div>
+                            <div class="font-medium text-sm text-gray-400">{{ Auth::user()->email }}</div>
+                        </div>
+
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Perfil') }}
                         </x-dropdown-link>
@@ -77,7 +84,7 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users')" class="text-white hover:text-gray-200">
+            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users')" class="text-white ">
                 {{ __('Usuários') }}
             </x-responsive-nav-link>
         </div>
