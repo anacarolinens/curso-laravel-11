@@ -20,23 +20,23 @@
                     @endcan --}}
 
                     @can('is-admin')
-                    <form action="{{ route('users.destroy', $user->id )}}" method="post">
-                        @csrf
-                        @method('delete')
+                        <form action="{{ route('users.destroy', $user->id )}}" method="post">
+                            @csrf
+                            @method('delete')
 
-                        <x-secondary-button x-on:click="$dispatch('close')">
-                            {{ __('Cancelar') }}
-                        </x-secondary-button>
+                            <x-secondary-button x-on:click="$dispatch('close')">
+                                {{ __('Cancelar') }}
+                            </x-secondary-button>
 
-                        <x-danger-button  x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')" class="mt-5 ml-4">
-                            {{ __('Deletar') }}
-                        </x-danger-button>
+                            <x-danger-button  x-data="" x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')" class="mt-5 ml-4">
+                                {{ __('Deletar') }}
+                            </x-danger-button>
 
-                    </form>
+                        </form>
 
-                    <!-- Modal Deleção-->
+                        <!-- Modal Deleção-->
                         <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-                            <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
+                            <form method="post" action="{{ route('users.destroy', $user->id) }}" class="p-6">
                                 @csrf
                                 @method('delete')
 
