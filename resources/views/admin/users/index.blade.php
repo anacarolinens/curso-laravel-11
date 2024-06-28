@@ -59,19 +59,34 @@
                                         <td class="px-6 py-4 text-center">{{ $user->email }}</td>
                                         <td class="px-2 py-3 text-center">
                                             <a href="{{ route('users.edit', $user->id) }}"
-                                                x-data
-                                                x-on:click.prevent="$dispatch('open-modal', 'confirm-user-edit')"
+                                                x-data="{ id: '{{ $user->id }}' }"
+                                                x-on:click.prevent="$dispatch('open-modal', 'confirm-user-edit-{{ $user->id }}')"
                                                 class="px-4 py-2 rounded text-white bg-blue-700 hover:bg-blue-900"
                                                 title='Editar'
                                                 aria-label="Editar {{ $user->name }}">
                                                 Editar
                                             </a>
-                                            <a href="{{ route('users.show', $user->id) }}" x-data
-                                                x-on:click.prevent="$dispatch('open-modal', 'confirm-user-show')" class="px-4 py-2 rounded text-white bg-green-700 ml-4 hover:bg-green-900" title="Detalhes" aria-label="Ver detalhes de {{ $user->name }}">
+
+                                            <a href="{{ route('users.show', $user->id) }}"
+                                                x-data="{ id: '{{ $user->id }}' }"
+                                                x-on:click.prevent="$dispatch('open-modal', 'confirm-user-show-{{ $user->id }}')"
+                                                class="px-4 py-2 rounded text-white bg-green-700 ml-4 hover:bg-green-900" title="Detalhes"
+                                                aria-label="Ver detalhes de {{ $user->name }}">
                                                 Detalhes
                                             </a>
                                         </td>
                                     </tr>
+
+                                    <!-- Definição do modal de edição -->
+                                    <x-modal name="confirm-user-edit-{{ $user->id }}" :show="false" focusable>
+                                        @include('admin.users.edit', ['user' => $user])
+                                    </x-modal>
+
+                                    <!-- Definição do modal de visualização -->
+                                    <x-modal name="confirm-user-show-{{ $user->id }}" :show="false" focusable>
+                                        @include('admin.users.show', ['user' => $user])
+                                    </x-modal>
+
                                 @empty
                                     <tr>
                                         <td colspan="3" class="text-center py-4">Nenhum usuário cadastrado</td>
@@ -79,21 +94,14 @@
                                 @endforelse
                             </tbody>
                         </table>
+
+                        <div class="py-4">
+                            {{ $users->links() }}
+                        </div>
+
                     </div>
 
-                    <!-- Definição do modal de edição -->
-                    <x-modal name="confirm-user-edit" :show="false" focusable>
-                        @include('admin.users.edit', ['user' => $user])
-                    </x-modal>
 
-                    <!-- Definição do modal de visualização -->
-                    <x-modal name="confirm-user-show" :show="false" focusable>
-                        @include('admin.users.show', ['user' => $user])
-                    </x-modal>
-
-                    <div class="py-4">
-                        {{ $users->links() }}
-                    </div>
                 </div>
             </div>
         </div>
