@@ -48,7 +48,7 @@
                                     {{ __('Depois que sua conta for excluída, todos os seus recursos e dados serão excluídos permanentemente. Clique em confirmar para excluir permanentemente essa conta.') }}
                                 </p>
 
-                                <div class="mt-6 flex justify-center">
+                                <div class="mt-6 flex justify-center mb-10">
                                     <x-secondary-button x-on:click="$dispatch('close')">
                                         {{ __('Cancelar') }}
                                     </x-secondary-button>
@@ -59,7 +59,6 @@
                                 </div>
                             </form>
                         </x-modal>
-
                     @endcan
                 </div>
             </div>
