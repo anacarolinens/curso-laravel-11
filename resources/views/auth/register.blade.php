@@ -7,16 +7,6 @@
             <img src="{{ asset('sgu-w-sf-b.svg') }}" class="block h-20 w-auto fill-current h-25 m-auto"/>
         </div>
 
-        <!-- Notification for successful registration -->
-        @if (session('success'))
-            <div class="mb-4 text-sm font-medium text-green-600">
-                {{ session('success') }}
-                <a href="{{ route('login') }}" class="underline text-sm text-blue-600 hover:text-blue-900">
-                    {{ __('Clique aqui para fazer login') }}
-                </a>
-            </div>
-        @endif
-
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
