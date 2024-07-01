@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-blue-700 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class="bg-blue-700 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <img src="{{ asset('SGU-w.svg') }}" class="block h-9 w-auto fill-current" />
+                        <img src="{{ asset('sgu-w-sf.svg') }}" class="block h-9 w-auto fill-current" />
                     </a>
                 </div>
 

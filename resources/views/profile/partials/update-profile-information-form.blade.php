@@ -48,7 +48,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Salvar') }}</x-primary-button>
+            <x-primary-button class='bg-blue-700 hover:bg-blue-900'>{{ __('Salvar') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p

@@ -2,6 +2,21 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <!-- Logo -->
+        <div class="shrink-0 flex items-center justify-center mt-8 mb-10">
+            <img src="{{ asset('sgu-w-sf-b.svg') }}" class="block h-20 w-auto fill-current h-25 m-auto"/>
+        </div>
+
+        <!-- Notification for successful registration -->
+        @if (session('success'))
+            <div class="mb-4 text-sm font-medium text-green-600">
+                {{ session('success') }}
+                <a href="{{ route('login') }}" class="underline text-sm text-blue-600 hover:text-blue-900">
+                    {{ __('Clique aqui para fazer login') }}
+                </a>
+            </div>
+        @endif
+
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -39,14 +54,17 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
+         <!-- Entrar Button -->
+        <div class="mt-6">
+            <x-primary-button class="w-full bg-blue-700 hover:bg-blue-900 text-white text-center justify-center">
+                {{ __('Registrar') }}
             </x-primary-button>
+        </div>
+
+        <div class="flex items-center justify-end mt-4">
+            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800 mb-5" href="{{ route('login') }}">
+                {{ __('Já está registrado? Entrar') }}
+            </a>
         </div>
     </form>
 </x-guest-layout>
